@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="jumbotron bg-dark">
+    <h2>Postcards</h2>
+    <hr />
+    <table class="table table-dark">
+        <tr><th>ID</th><th>Photo</th><th>Operations</th><th>Email</th></tr>
+        {% for pic in pics %}
+        <tr>
+            <td>{{ pic[0] }}</td>
+            <td><img class="img rounded" style="width: 150px;" src="{{ pic[4] }}{{ pic[1] }}" alt="/static/{{ pic[1] }}" /></td>
+            <td><button class="btn btn-primary">Create Postcard</button><br /><br /><button class="btn btn-danger">Delete</button><br /><br /><button class="btn btn-secondary disabled">Send Email</button></td>
+            <td>{{ pic[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

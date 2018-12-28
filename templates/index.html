@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="jumbotron bg-dark">
+   <h2>Create a Postcard!</h2>
+   <hr />
+   <h5>Here's how you do it:</h5>
+   <ol>
+      <li>Uplaod a photo</li>
+      <li>Enter you email</li>
+      <li>You'll get an email with your new postcard attached to it! (<a href="/Postcards">see my postcards</a>)</li>
+   </ol>
+   <form action="/" method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+         <label for="photoInput">Photo:</label>
+         <input id="photoInput" class="form-control btn btn-light" type="file" name="photo" />
+         <label for="emailInput">Email:</label>
+         <input id="emailInput" class="form-control bg-dark text-white" type="text" name="email" />
+      </div>
+      <div class="form-group">
+         <input class="form-control btn btn-primary" type="submit" value="Upload" />
+      </div>
+   </form>
+</div>
+{% endblock %}
