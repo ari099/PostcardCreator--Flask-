@@ -41,12 +41,26 @@ def select_photo_by_id(conn, id):
    :return:
    """
    cur = conn.cursor()
-   cur.execute("SELECT Photo FROM Photos WHERE ID=?", (id,))
+   cur.execute("SELECT Path FROM Photos WHERE ID=?", (id,))
 
    rows = cur.fetchall()
 
    # for row in rows:
    #    print(row)
+   return rows
+
+
+def delete_photo_by_id(conn, id):
+   """
+   Delete photo by ID
+   :param conn: the Connection object
+   :param id:
+   :return:
+   """
+   cur = conn.cursor()
+   cur.execute("DELETE FROM Photos WHERE ID=?", (id,))
+
+   rows = cur.fetchall()
    return rows
 
 

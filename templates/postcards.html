@@ -11,7 +11,7 @@
             <td><img class="img rounded" style="width: 150px;" src="{{ pic[4] }}{{ pic[1] }}" alt="/static/{{ pic[1] }}" /></td>
             <td>
                 <button class="btn btn-primary{% if not pic[3] %} disabled{% endif %}">Create Postcard</button><br /><br />
-                <button class="btn btn-danger">Delete</button><br /><br />
+                <button onclick="delete_photo({{ pic[0] }})" class="btn btn-danger">Delete</button><br /><br />
                 <button class="btn btn-secondary{% if not pic[3] %} disabled{% endif %}">Send Email</button></td>
             <td>{{ pic[2] }}</td>
         </tr>

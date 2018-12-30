@@ -39,7 +39,11 @@ def create_postcard(id):
 # Delete Photo
 @app.route('/DeletePhoto/<int:id>', methods=['DELETE'])
 def delete_photo(id):
-   pass
+   conn = create_connection('photos.db')
+   delete_photo_by_id(conn, id)
+   _pics = select_all_photos(conn)
+   conn.close()
+   return redirect(url_for('postcards'))
 
 # Send Postcard
 @app.route('/SendPostcard/<int:id>', methods=['POST'])
