@@ -1,9 +1,13 @@
-$(document).ready({
-   $("del1").ajax({
-      url: '/DeletePhoto/',
-      type: 'DELETE',
+$("#del1").click(function(e) {
+   e.preventDefault();
+   $.ajax({
+      type: "DELETE",
+      url: "/DeletePhoto/1",
       success: function(result) {
-         // Do something with the result
+         location.href = "/Postcards";
+      },
+      error: function(result) {
+         location.href = "/Postcards";
       }
-   })
+   });
 });
