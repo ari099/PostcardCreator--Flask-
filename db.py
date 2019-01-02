@@ -77,3 +77,17 @@ def create_photo(conn, pic, email):
     cur.execute(sql, (random.randint(1,101), pic, email, 0, './static/',))
     conn.commit()
     return cur.lastrowid
+
+
+def modify_image(conn, pic_id):
+   """
+   Set Modified flag to True
+   :param conn:
+   :param pic:
+   :return:
+   """
+
+   sql = "UPDATE Photos SET Modified = 1 WHERE ID = ?"
+   cur = conn.cursor()
+   cur.execute(sql, (pic_id,))
+   conn.commit()

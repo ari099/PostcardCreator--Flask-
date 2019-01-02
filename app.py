@@ -4,9 +4,11 @@ import os
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from db import *
+from PIL import Image, ImageDraw, ImageFont
 
 # Flask app object
 app = Flask(__name__)
+message = "PostcardCreator"
 
 # Home Page
 @app.route('/', methods=['GET', 'POST'])
@@ -33,8 +35,32 @@ def postcards():
 def create_postcard(id):
    conn = create_connection('photos.db')
    _photo = select_photo_by_id(conn, id)
+   # Create Image object with the input image
+   image = Image.open(_photo[1])
+
+   # Initialize the drawing context with the image
+   # object as background
+   draw = ImageDraw.Draw(image)
+   # Create font object with the font file and specify
+   # desired size
+   font = ImageFont.truetype('./fonts/lucon.ttf', size=10)
+
+   # Starting position of the message
+   (x, y) = (0, 0)
+   color = 'rgb(255, 255, 255)' # Black color
+
+   # Draw message
+   draw.text((x, y), message, fill=color, font=font)
+
+   # Save the edited image
+   image.save(_photo[1])
+
+   # Set Modified flag to 1
+   modify_image(conn, _photo[0])
+
+   # Close database connection
    conn.close()
-   pass
+   return redirect(url_for('postcards'))
 
 # Delete Photo
 @app.route('/DeletePhoto/<int:id>', methods=['DELETE'])

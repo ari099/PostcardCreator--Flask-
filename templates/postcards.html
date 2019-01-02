@@ -10,7 +10,7 @@
             <td>{{ pic[0] }}</td>
             <td><img class="img rounded" style="width: 150px;" src="{{ pic[4] }}{{ pic[1] }}" alt="/static/{{ pic[1] }}" /></td>
             <td>
-                <button id="cr{{ pic[0] }}" class="btn btn-primary{% if not pic[3] %} disabled{% endif %}">Create Postcard</button><br /><br />
+                <button id="cr{{ pic[0] }}" class="btn btn-primary{% if pic[3] %} disabled{% endif %}">Create Postcard</button><br /><br />
                 <button id="del{{ pic[0] }}" class="btn btn-danger">Delete</button><br /><br />
                 <button id="snd{{ pic[0] }}" class="btn btn-secondary{% if not pic[3] %} disabled{% endif %}">Send Email</button></td>
             <td>{{ pic[2] }}</td>
