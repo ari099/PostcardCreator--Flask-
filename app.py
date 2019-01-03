@@ -8,7 +8,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 # Flask app object
 app = Flask(__name__)
-message = "PostcardCreator"
+message = "Did this work?"
 
 # Home Page
 @app.route('/', methods=['GET', 'POST'])
@@ -67,7 +67,6 @@ def create_postcard(id):
 def delete_photo(id):
    conn = create_connection('photos.db')
    pic = select_photo_by_id(conn, id)
-   # print(pic)
    delete_photo_by_id(conn, id)
    _pics = select_all_photos(conn)
    if os.path.exists("./static/" + pic[0][1]):
