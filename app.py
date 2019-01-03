@@ -1,6 +1,6 @@
 #!/bin/python
 
-import os
+import os, smtplib
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from db import *
@@ -36,14 +36,14 @@ def create_postcard(id):
    conn = create_connection('photos.db')
    _photo = select_photo_by_id(conn, id)
    # Create Image object with the input image
-   image = Image.open(_photo[1])
+   image = Image.open("./static/" + _photo[0][1])
 
    # Initialize the drawing context with the image
    # object as background
    draw = ImageDraw.Draw(image)
    # Create font object with the font file and specify
    # desired size
-   font = ImageFont.truetype('./fonts/lucon.ttf', size=10)
+   font = ImageFont.truetype('./fonts/lucon.ttf', size=45)
 
    # Starting position of the message
    (x, y) = (0, 0)
@@ -53,10 +53,10 @@ def create_postcard(id):
    draw.text((x, y), message, fill=color, font=font)
 
    # Save the edited image
-   image.save(_photo[1])
+   image.save("./static/" + _photo[0][1])
 
    # Set Modified flag to 1
-   modify_image(conn, _photo[0])
+   modify_image(conn, _photo[0][0])
 
    # Close database connection
    conn.close()
@@ -70,8 +70,8 @@ def delete_photo(id):
    # print(pic)
    delete_photo_by_id(conn, id)
    _pics = select_all_photos(conn)
-   if os.path.exists("./static/" + pic[0][0]):
-      os.remove("./static/" + pic[0][0])
+   if os.path.exists("./static/" + pic[0][1]):
+      os.remove("./static/" + pic[0][1])
    else: print("The file doesn't exist")
    conn.close()
    return redirect(url_for('postcards'))

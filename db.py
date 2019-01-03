@@ -41,7 +41,7 @@ def select_photo_by_id(conn, id):
    :return:
    """
    cur = conn.cursor()
-   cur.execute("SELECT Path FROM Photos WHERE ID=?", (id,))
+   cur.execute("SELECT ID, Path FROM Photos WHERE ID=?", (id,))
 
    rows = cur.fetchall()
 
