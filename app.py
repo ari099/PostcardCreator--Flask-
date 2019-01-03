@@ -66,8 +66,13 @@ def create_postcard(id):
 @app.route('/DeletePhoto/<int:id>', methods=['POST'])
 def delete_photo(id):
    conn = create_connection('photos.db')
+   pic = select_photo_by_id(conn, id)
+   # print(pic)
    delete_photo_by_id(conn, id)
    _pics = select_all_photos(conn)
+   if os.path.exists("./static/" + pic[0][0]):
+      os.remove("./static/" + pic[0][0])
+   else: print("The file doesn't exist")
    conn.close()
    return redirect(url_for('postcards'))
 

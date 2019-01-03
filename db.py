@@ -59,9 +59,7 @@ def delete_photo_by_id(conn, id):
    """
    cur = conn.cursor()
    cur.execute("DELETE FROM Photos WHERE ID=?", (id,))
-
-   rows = cur.fetchall()
-   return rows
+   conn.commit()
 
 
 def create_photo(conn, pic, email):
