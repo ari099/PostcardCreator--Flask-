@@ -1,13 +1,26 @@
 #!/bin/python
 
-import os, smtplib
+import os
 from flask import Flask, render_template, request, redirect, url_for
+from flask_mail import Mail, Message
 from werkzeug.utils import secure_filename
 from db import *
 from PIL import Image, ImageDraw, ImageFont
 
 # Flask app object
 app = Flask(__name__)
+mail_settings = {
+    "MAIL_SERVER": 'smtp.gmail.com',
+    "MAIL_PORT": 465,
+    "MAIL_USE_TLS": False,
+    "MAIL_USE_SSL": True,
+    "MAIL_USERNAME": "postcard@gmail.com",
+    "MAIL_PASSWORD": "************"
+}
+
+app.config.update(mail_settings)
+mail = Mail(app)
+
 message = "Did this work?"
 
 # Home Page
@@ -78,6 +91,19 @@ def delete_photo(id):
 # Send Postcard
 @app.route('/SendPostcard/<int:id>', methods=['POST'])
 def send_postcard(id):
+   conn = create_connection('photos.db')
+   pic = select_photo_by_id(conn, id)
+   email = pic[0][2]
+   with app.app_context():
+      msg = Message(subject="Enjoy your Postcard!",
+                     sender=app.config.get("MAIL_USERNAME"),
+                     recipients=[email],
+                     body="Attached is your newly created postcard. Enjoy!")
+      filename, file_extension = os.path.splitext('./static/'+pic[1])
+      msg.attach("./static/"+pic[1],
+         'image/'+file_extension,
+         app.open_resource("./static/"+pic[1]))
+      mail.send(msg)
    pass
 
 if __name__ == '__main__':
