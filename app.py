@@ -1,7 +1,6 @@
 #!/bin/python
 
 import os, random
-from nocache import nocache
 from flask import Flask, render_template, request, redirect, url_for
 from flask_mail import Mail, Message
 from werkzeug.utils import secure_filename
