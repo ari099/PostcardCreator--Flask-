@@ -1,6 +1,7 @@
 #!/bin/python
 
-import os
+import os, random
+from nocache import nocache
 from flask import Flask, render_template, request, redirect, url_for
 from flask_mail import Mail, Message
 from werkzeug.utils import secure_filename
@@ -21,7 +22,7 @@ mail_settings = {
 app.config.update(mail_settings)
 mail = Mail(app)
 
-message = "Did this work?"
+message = "Hello, World!"
 
 # Home Page
 @app.route('/', methods=['GET', 'POST'])
@@ -41,7 +42,7 @@ def postcards():
    conn = create_connection('photos.db')
    _pics = select_all_photos(conn)
    conn.close()
-   return render_template('postcards.html', pics=_pics, page='Postcards')
+   return render_template('postcards.html', pics=_pics, page='Postcards', n=random.randint(1,10001))
 
 # Create Postcard
 @app.route('/CreatePostcard/<int:id>', methods=['POST'])
