@@ -12,6 +12,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 # Flask app object
 app = Flask(__name__)
+
+# Setting up mail capabilities
 mail_settings = {
     "MAIL_SERVER": 'smtp.gmail.com',
     "MAIL_PORT": 465,
@@ -20,10 +22,10 @@ mail_settings = {
     "MAIL_USERNAME": "postcard@gmail.com",
     "MAIL_PASSWORD": "************"
 }
-
 app.config.update(mail_settings)
 mail = Mail(app)
 
+# Message for each new postcard
 message = "Hello, World!"
 
 # Form for uploading photos and emails together....
