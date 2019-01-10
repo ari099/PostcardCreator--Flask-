@@ -26,12 +26,13 @@ mail = Mail(app)
 
 message = "Hello, World!"
 
+# Form for uploading photos and emails together....
 class PhotoForm(Form):
    email = TextField("Email", [validators.DataRequired(), validators.Email()])
    photo = FileField("Photo", validators=[FileRequired()])
    submit = SubmitField("Upload")
 
-# Home Page
+# Home Page....
 @app.route('/', methods=['GET', 'POST'])
 def index():
    if request.method == 'POST':
