@@ -3,6 +3,9 @@
 import os, random
 from flask import Flask, render_template, request, redirect, url_for
 from flask_mail import Mail, Message
+from flask_wtf import *
+from flask_wtf.file import *
+from wtforms import *
 from werkzeug.utils import secure_filename
 from db import *
 from PIL import Image, ImageDraw, ImageFont
@@ -23,6 +26,11 @@ mail = Mail(app)
 
 message = "Hello, World!"
 
+class PhotoForm(Form):
+   email = TextField("Email", [validators.DataRequired(), validators.Email()])
+   photo = FileField("Photo", validators=[FileRequired()])
+   submit = SubmitField("Upload")
+
 # Home Page
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -33,7 +41,7 @@ def index():
       create_photo(conn, secure_filename(f.filename), request.form['email'])
       conn.close()
       return redirect(url_for('postcards'))
-   return render_template('index.html', page='Home Page')
+   return render_template('index.html', page='Home Page', form=PhotoForm())
 
 # Postcards Page
 @app.route('/Postcards', methods=['GET'])

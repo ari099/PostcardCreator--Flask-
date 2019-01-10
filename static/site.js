@@ -1,3 +1,10 @@
+var photoValidate = function() {
+    var photo = $(this)["photo"];
+    var email = $(this)["email"];
+    if(photo == "") { alert("Please upload an image"); }
+    if(email == "") { alert("Please enter an email"); }
+}
+
 $(document).ready(function () {
     // Delete photo....
     $(".del").on('click', function(e) {
