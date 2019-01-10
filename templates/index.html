@@ -19,7 +19,7 @@
    <form name="photo_form" action="/" method="POST" enctype="multipart/form-data" onsubmit="photoValidate()">
       <div class="form-group">
          {{ form.photo.label }}
-         {{ form.photo(**{'class': 'form-control btn btn-light'}) }}
+         {{ form.photo(**{'class': 'form-control btn btn-light bg-dark text-white'}) }}
          {{ form.email.label }}
          {{ form.email(**{'class': 'form-control bg-dark text-white'}) }}
       </div>
