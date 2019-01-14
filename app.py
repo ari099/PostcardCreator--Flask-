@@ -14,13 +14,17 @@ from PIL import Image, ImageDraw, ImageFont
 app = Flask(__name__)
 
 # Setting up mail capabilities
+# To make this work, an existing SMTP server is needed
+# Please make sure to enter the server DNS address and
+# the appropriate credentials for it in the empty
+# strings below
 mail_settings = {
-    "MAIL_SERVER": 'smtp.gmail.com',
+    "MAIL_SERVER": '',
     "MAIL_PORT": 465,
     "MAIL_USE_TLS": False,
     "MAIL_USE_SSL": True,
-    "MAIL_USERNAME": "postcard@gmail.com",
-    "MAIL_PASSWORD": "************"
+    "MAIL_USERNAME": "",
+    "MAIL_PASSWORD": ""
 }
 app.config.update(mail_settings)
 mail = Mail(app)
